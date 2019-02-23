@@ -1,5 +1,4 @@
 /**
- * Authors: Nitin Kanukolanu, Shawn Yeng Wei Xen
  * File: ParseReducer.java
  * This java file functions as the first reducer, inputting records from the first mapper, and 
  * outputting the latest article record, its original page rank which is 1.0, and its outlinks.
