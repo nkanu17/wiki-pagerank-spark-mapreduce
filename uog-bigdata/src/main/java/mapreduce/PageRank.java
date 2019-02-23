@@ -1,5 +1,4 @@
 /**
- *  Authors: Nitin Kanukolanu, Shawn Yeng Wei Xen
  *  File: PageRank.java 
  *  This java file functions as the driver for the program, 
  *  performing jobs for the page ranks.
