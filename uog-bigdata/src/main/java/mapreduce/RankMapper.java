@@ -1,3 +1,10 @@
+/**
+ * File: RankMapper.java
+ * This java file functions as the second mapper, inputting the records from the first reducer, or via
+ * the second reducer (which is RankReducer.java) as the Rank Mapper and Reducer is reiterated at least one 
+ * time, and outputs lines by lines of the outlinks being keys and page ranks of the articles and article
+ * titles as values.
+ */
 package mapreduce;
 
 import java.io.IOException;
