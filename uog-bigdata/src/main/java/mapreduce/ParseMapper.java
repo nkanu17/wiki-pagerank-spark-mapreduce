@@ -1,7 +1,8 @@
 /**
- * File: ParseReducer.java
- * This java file functions as the first reducer, inputting records from the first mapper, and 
- * outputting the latest article record, its original page rank which is 1.0, and its outlinks.
+ * File: ParseMapper.java
+ * This java file functions as the first mapper, inputting records from a text file containing 
+ * a parsed version of the complete Wikipedia edit history and outputting key-values of the article
+ * title (as the key), date and time of the revision and outlinks of the article (as values).
  */
 package mapreduce;
 
