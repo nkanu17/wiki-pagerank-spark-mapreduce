@@ -1,5 +1,5 @@
 /**
- *  Group: UG37 Members: Nitin Kanukolanu (2416724K), Shawn Yeng Wei Xen (2395121Y)
+ *  Authors: Nitin Kanukolanu, Shawn Yeng Wei Xen
  *  File: PageRank.java 
  *  This java file functions as the driver for the program, 
  *  performing jobs for the page ranks.
