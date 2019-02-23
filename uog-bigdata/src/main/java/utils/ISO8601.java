@@ -1,5 +1,5 @@
 /**
- * This file is from Nikos Ntarmos at the University of Glasgow
+ * The code in that class has been provided Nikos Ntarmos at the University of Glasgow
  */
 package utils;
 
