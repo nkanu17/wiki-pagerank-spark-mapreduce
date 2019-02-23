@@ -1,6 +1,5 @@
 /**
- * Group: UG37
- * Members: Shawn Yeng Wei Xen (2395121Y), Nitin Kanukolanu (2416724K)
+ * Authors: Nitin Kanukolanu, Shawn Yeng Wei Xen
  * File: ParseMapper.java
  * This java file functions as the first mapper, inputting records from a text file containing 
  * parsed version of the complete Wikipedia edit history and outputting key-values of the article
