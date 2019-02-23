@@ -1,6 +1,9 @@
 /**
- * export HADOOP_CLASSPATH=/home/cloudera/Downloads/uog-bigdata/target/uog-bigdata-0.0.1-SNAPSHOT.jar
-
+ * File: RankReducer.java
+ * This java file functions as the second reducer, inputting the records from the second mapper. It
+ * calculates the page rank based on the number of outlinks of the articles and outputs records
+ * similar to the records being output to the second mapper from the first reducer
+ * with different page rank values.
  */
 
 package mapreduce;
