@@ -1,9 +1,10 @@
 /**
- * File: RankMapper.java
- * This java file functions as the second mapper, inputting the records from the first reducer, or via
- * the second reducer (which is RankReducer.java) as the Rank Mapper and Reducer is reiterated at least one 
- * time, and outputs lines by lines of the outlinks being keys and page ranks of the articles and article
- * titles as values.
+ *  Group: UG37 Members: Nitin Kanukolanu (2416724K), Shawn Yeng Wei Xen (2395121Y)
+ *  File: RankMapper.java 
+ *  This file functions as the second mapper, receives input that is Article, PageRank, and list of outlinks
+ *  and then assigns a node for all articles.
+ *  Send an output key (which is the outlink article), and value (page rank and article (inlink) that references the outlink) 
+ *  in a loop but for the final loop sends the original input as the output. 
  */
 package mapreduce;
 
@@ -18,7 +19,10 @@ import org.apache.hadoop.mapreduce.Mapper.Context;
 
 public class RankMapper extends Mapper<LongWritable, Text, Text, Text> {
 	
-	
+	/* 
+	 * @param <key: line/index number as Text, page rank and list of outlinks as TextArrayWritable>
+	 * @output <key: article title as Text, value: page rank and inlink/outlinks as TextArrayWritable>
+	 */
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 		Text outlinksText = new Text();
@@ -35,17 +39,20 @@ public class RankMapper extends Mapper<LongWritable, Text, Text, Text> {
 		int countOutlinks = tokens.length - 2;
 
 		Text inlinksText = new Text(pageRank + ",,," + countOutlinks + ",,," + articleKey);
-
+		// setting nodes
 		for (int i = 2; i < tokens.length; i++) {
 
 			newKey.set(tokens[i]);
 			context.write(newKey, inlinksText);
 
 		}
+		
+		//after all inlinks, setting the original article with the original outlinks to orginal
 		for(int i = 1; i<tokens.length; i++) {
 			original = original + tokens[i]+",,,";
 		}
 		
+		//adding #outlinks to identify it in the RankReducer
 		original = original + "#outlinks";
 		
 		outlinksText.set(original);
