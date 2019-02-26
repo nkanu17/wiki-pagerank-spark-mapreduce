@@ -1,9 +1,12 @@
 /**
+ * Group: UG37
+ * Members: Shawn Yeng Wei Xen (2395121Y), Nitin Kanukolanu (2416724K)
  * File: ParseMapper.java
  * This java file functions as the first mapper, inputting records from a text file containing 
- * a parsed version of the complete Wikipedia edit history and outputting key-values of the article
+ * parsed version of the complete Wikipedia edit history and outputting key-values of the article
  * title (as the key), date and time of the revision and outlinks of the article (as values).
  */
+ 
 package mapreduce;
 
 import java.io.IOException;
@@ -23,12 +26,9 @@ public class ParseMapper extends Mapper<LongWritable, Text, Text, Text> {
 	private long articleDate;
 	private boolean correctRecord = false;
 	private Text dateAndOutlinks;
-	/*
-	 * map class takes in the parameters from the user input and derives the correct records that
-	 * are required to perform this map reduce job. The output includes the key, which is the
-	 * article title and value which consists of the date and outlinks
-	 *@param <key, value, context>
-	 *@output<key, value>
+	/* 
+	 *@param <key:line/index number as LongWritable, value: input file line as Text, context is the configuration>
+	 *@output <key: article title as Text, value: date and list of outlinks as TextArrayWritable>  
 	 */
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		
