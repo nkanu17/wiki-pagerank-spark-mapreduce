@@ -1,4 +1,4 @@
-# Project Title
+# Wiki PageRank MapReduce (Spark coming soon)
 
 This project computes the page rank of Wikipedia edit history using MapReduce chaining before a specific date (user specified input).
 The program will then consist of total of three MapReduce jobs where the first one will parse the documents and the second job will calculate the page rank in iterations (user specified input). The final job will output the Wikipedia article with its page rank. Upon the completion of each job, the output is written onto different folders that become the input folders for the next MapReduce job. After the completion of the final job, the output is available to view through the HDFS output folders.
