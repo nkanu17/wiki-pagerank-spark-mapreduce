@@ -3,8 +3,6 @@
 This project computes the page rank of Wikipedia edit history using MapReduce chaining before a specific date (user specified input).
 The program will then consist of total of three MapReduce jobs where the first one will parse the documents and the second job will calculate the page rank in iterations (user specified input). The final job will output the Wikipedia article with its page rank. Upon the completion of each job, the output is written onto different folders that become the input folders for the next MapReduce job. After the completion of the final job, the output is available to view through the HDFS output folders.
 
-## Solution
-
 ### INPUT REQUIREMENTS:
 There are four input arguments 
 1. Input path (Path of the Wikipedia edit history)
@@ -14,13 +12,13 @@ There are four input arguments
 
 Example from terminal: hadoop mapreduce.PageRank /user/enwiki/enwiki-20080103-sample.txt pagerank1 5 2004-01-01T00:00:00Z
 
-### IMPLEMENTATION:
+## IMPLEMENTATION:
 
 The program get intitiates from PageRank class' main method. From the run method of PageRank class, other three jobs get executed one after another, as described below:
 
 PageRank.class -> Job1 -> Job2 -> Job3
 
-#### Job1 
+### Job1 
 - ParseMapper (mapper class)
 - ParseReducer (reducer class)
 
@@ -42,7 +40,7 @@ ParseReducer input and output
 - Input: <key: article title as Text, date and list of outlinks as TextArrayWritable>
 - Output <key: article title as Text, value: initial page rank of 1.0 and list of outlinks as TextArrayWritable>
 
-#### Job2
+### Job2
 - RankMapper (mapper class)
 - RankReducer (reducer class)
 
@@ -64,7 +62,7 @@ RankReducer input and output
 - Input: <key: line/index number as Text, page rank and list of outlinks as TextArrayWritable>
 - Output <key: article title as Text, value: page rank and list of outlinks as TextArrayWritable>
 
-#### Job3
+### Job3
 - OutputMapper (mapper class)
 
 Description:
