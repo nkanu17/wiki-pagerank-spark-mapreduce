@@ -1,9 +1,10 @@
 /**
+ * Group: UG37
+ * Members: Shawn Yeng Wei Xen (2395121Y), Nitin Kanukolanu (2416724K)
  * File: ParseReducer.java
- * This java file functions as the first reducer, inputting records from the first mapper, and outputting
- * the latest article record, its original page rank which is 1.0, and its outlinks.
+ * This java file functions as the first reducer, inputting records from the first mapper, and 
+ * outputting the latest article record, its original page rank which is 1.0, and its outlinks.
  */
-
 package mapreduce;
 
 import java.io.IOException;
@@ -14,13 +15,13 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class ParseReducer extends Reducer<Text, Text, Text, Text> {
-	/*
-	 * reduce class takes in the output produced by the ParseMapper map class
+	/* 
+	 * Reduce class takes in the output produced by the ParseMapper map class
 	 * this includes the key, which is article title, and value, which includes the date and the outlinks.
 	 * This class computes the original page rank, 1.0, and outputs this along with the other outlinks 
 	 * in the value. The key is the article title.
-	 *@param <key, value, context>
-	 *@output<key, value>
+	 *@param <key: article title as Text, date and list of outlinks as TextArrayWritable, context is configuration>
+	 *@output<key: article title as Text, value: initial page rank of 1.0 and list of outlinks as TextArrayWritable>
 	 */
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 		Text finalValues = new Text();
