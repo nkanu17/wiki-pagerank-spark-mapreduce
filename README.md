@@ -1,6 +1,46 @@
-# Wiki PageRank MapReduce (Spark coming soon)
+# Wiki PageRank with MapReduce and Spark
 
-This project computes the page rank of Wikipedia edit history using MapReduce chaining before a specific date (user specified input).
+## Assumptions
+
+- PageRank formula: PR(u)=0.15 + 0.85 * Sum(PR(v)/L(v)), ∀v: ∃(v,u) ∈S, where L(v) is the number of out-links of page v
+- First the first iteration, the page rank of all articles is 1.0
+- After each iteration, the page rank score of an articule u  is sum of all the contributions of articles with an outlink to u, times 0.85, plus 0.15 (= 1 - 0.85). The 0.85 factor is called the “damping factor” of PageRank. (Given by University of Glasgow's Nikos Ntarmos)
+- Assumed 'REVISION' and 'MAIN' occur at the beginning of a new line
+
+## Assumed Format of Wiki revision history pages
+
+Each revision history record consists of 14 lines, each starting with a tag and containing a space/tabdelimited series of entries. More specifically, each record contains the following data/tags, one tag
+per line:
+- REVISION: revision metadata, consisting of:
+- article_id: a large integer, uniquely identifying each page.
+- rev_id: a large number uniquely identifying each revision.
+- article_title: a string denoting the page’s title (and the last part of the URL of the
+page, hence also uniquely identifying each page).
+- timestamp: the exact date and time of the revision, in ISO 8601 format; e.g., 13:45:00
+UTC 30 September 2013 becomes 2013-09-12T13:45:00Z, where T separates the
+date from the time part and Z denotes the time is in UTC. (Note: a class that translates
+such dates into numerical form is provided in the skeleton code).
+- [ip:]username: the name of the user who performed the revision, or her DNS-resolved
+IP address (e.g., ip:office.dcs.gla.ac.uk) if anonymous.
+- user_id: a large number uniquely identifying the user who performed the revision, or
+her IP address as above if anonymous.
+- CATEGORY: list of categories this page is assigned to.
+- IMAGE: list of images in the page, each listed as many times as it occurs.
+- MAIN, TALK, USER, USER_TALK, OTHER: cross-references to pages in other namespaces.
+- EXTERNAL: list of hyperlinks to pages outside Wikipedia.
+- TEMPLATE: list of all templates used by the page, each listed as many times as it occurs.
+- COMMENT: revision comments as entered by the revision author.
+- MINOR: a Boolean flag (0|1) denoting whether the edit was marked as minor by the author.
+- TEXTDATA: word count of revision's plain text.
+- An empty line, denoting the end of the current record. 
+
+
+
+## Spark
+Info coming
+
+## Map Reduce
+This part computes the page rank of Wikipedia edit history using MapReduce chaining before a specific date (user specified input).
 The program will then consist of total of three MapReduce jobs where the first one will parse the documents and the second job will calculate the page rank in iterations (user specified input). The final job will output the Wikipedia article with its page rank. Upon the completion of each job, the output is written onto different folders that become the input folders for the next MapReduce job. After the completion of the final job, the output is available to view through the HDFS output folders.
 
 ### INPUT REQUIREMENTS:
@@ -79,39 +119,4 @@ OutputMapper Input and Output
 - Use a combiner to alleviate memory strain on reducer
 - Use another mapper or reducer that would break Job2 in different areas to create a new job that would create the nodes and send outlinks seperately
 - To boost performance, find ways to reduce data read by ParseMapper by creation of a sequential file that would send blocks of wiki article details.
-
-## Assumptions
-
-- PageRank formula: PR(u)=0.15 + 0.85 * Sum(PR(v)/L(v)), ∀v: ∃(v,u) ∈S, where L(v) is the number of out-links of page v
-- First the first iteration, the page rank of all articles is 1.0
-- After each iteration, the page rank score of an articule u  is sum of all the contributions of articles with an outlink to u, times 0.85, plus 0.15 (= 1 - 0.85). The 0.85 factor is called the “damping factor” of PageRank. (Given by University of Glasgow's Nikos Ntarmos)
-- Assumed 'REVISION' and 'MAIN' occur at the beginning of a new line
-
-## Assumed Format of Wiki revision history pages
-
-Each revision history record consists of 14 lines, each starting with a tag and containing a space/tabdelimited series of entries. More specifically, each record contains the following data/tags, one tag
-per line:
-- REVISION: revision metadata, consisting of:
-- article_id: a large integer, uniquely identifying each page.
-- rev_id: a large number uniquely identifying each revision.
-- article_title: a string denoting the page’s title (and the last part of the URL of the
-page, hence also uniquely identifying each page).
-- timestamp: the exact date and time of the revision, in ISO 8601 format; e.g., 13:45:00
-UTC 30 September 2013 becomes 2013-09-12T13:45:00Z, where T separates the
-date from the time part and Z denotes the time is in UTC. (Note: a class that translates
-such dates into numerical form is provided in the skeleton code).
-- [ip:]username: the name of the user who performed the revision, or her DNS-resolved
-IP address (e.g., ip:office.dcs.gla.ac.uk) if anonymous.
-- user_id: a large number uniquely identifying the user who performed the revision, or
-her IP address as above if anonymous.
-- CATEGORY: list of categories this page is assigned to.
-- IMAGE: list of images in the page, each listed as many times as it occurs.
-- MAIN, TALK, USER, USER_TALK, OTHER: cross-references to pages in other namespaces.
-- EXTERNAL: list of hyperlinks to pages outside Wikipedia.
-- TEMPLATE: list of all templates used by the page, each listed as many times as it occurs.
-- COMMENT: revision comments as entered by the revision author.
-- MINOR: a Boolean flag (0|1) denoting whether the edit was marked as minor by the author.
-- TEXTDATA: word count of revision's plain text.
-- An empty line, denoting the end of the current record. 
-
 
